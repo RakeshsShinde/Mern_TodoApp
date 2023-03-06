@@ -11,6 +11,14 @@ app.use('/assets', express.static(path.join(__dirname, '/public/assets')))
 
 dotenv.config();
 
+//handling error globally 
+app.use((err, req, res, next) => {
+    const status = err.status || 500;
+    const message = err.message || "something went wrong ";
+    return res.status(status).json(message);
+})
+
+
 app.use(express.json())
 connection(process.env.Mongo_url);
 
