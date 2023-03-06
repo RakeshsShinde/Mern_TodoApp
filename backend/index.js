@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const { connection } = require('./Conectdb')
 const path = require('path');
 const multer = require('multer');
+
 var app = express();
 
 app.use('/assets', express.static(path.join(__dirname, '/public/assets')))
