@@ -1,6 +1,6 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt');
-const jwt=require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const register = async (req, res, next) => {
     try {
         const { username, email, password, profilepic } = req.body;
@@ -33,10 +33,11 @@ const Login = async (req, res, next) => {
 
         if (!isValidUser) {
             return res.status(400).json('authentication failed !')
-        } 
+        }
 
-        const token=jwt.sign({id:user._id},process.env.secretKey)
-        return res.status(201).cookie('token',{token},{httpOnly:true}).json({...user._doc,token:token})
+        const token = jwt.sign({ id: user._id }, process.env.secretKey)
+        const { passsword, ...userRes } = user._doc;
+        return res.status(201).cookie('token', { token }, { httpOnly: true }).json({ ...userRes, token: token })
 
 
     } catch (error) {
