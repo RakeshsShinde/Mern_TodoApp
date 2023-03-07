@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 const { connection } = require('./Conectdb')
 const path = require('path');
 const multer = require('multer');
-
+const userRoute = require('./Routes/Users');
+const taskRoute = require('./Routes/Task');
 var app = express();
 
 app.use('/assets', express.static(path.join(__dirname, '/public/assets')))
@@ -34,10 +35,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-app.post('/api/upload', upload.single("file"), (req, res) => {
+app.post('/upload', upload.single("file"), (req, res) => {
     console.log(req.body);
     res.status(200).json('file has been uploaded !')
 })
+
+app.use('/users', userRoute);
+app.use('/task', taskRoute);
 
 var port = process.env.port || 3000;
 app.listen(port, () => {
