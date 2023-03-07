@@ -36,12 +36,13 @@ const Login = async (req, res, next) => {
         }
 
         const token = jwt.sign({ id: user._id }, process.env.secretKey)
-        const { passsword, ...userRes } = user._doc;
-        return res.status(201).cookie('token', { token }, { httpOnly: true }).json({userRes, token: token })
+        const {password:pass , ...other } = user._doc;
+        
+        return res.status(201).cookie('token', { token }, { httpOnly: true }).json({ other, token: token })
 
 
     } catch (error) {
-        next(err);
+        next(error);
     }
 }
 
