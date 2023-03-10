@@ -9,9 +9,14 @@ const taskSchema = new mongoose.Schema({
     type: {
         type: String,
         enums: ['default', 'shopping', 'whishlist', 'work', 'personal'],
-        default: 'defult',
+        default: 'default',
     },
 
+    title: {
+        type: String,
+        required: true,
+    }
+    ,
     status: {
         type: String,
         enums: ['pending', 'complete'],

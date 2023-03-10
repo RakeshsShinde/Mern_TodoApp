@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
 
     profilepic: {
         type: String,
-        default: 'https://storage.live.com/users/0x9857b66aa9637203/myprofile/expressionprofile/profilephoto:UserTileStatic/p?ck=1&ex=720&sid=27B60076FA006FFE159112BAFBA86E65&fofoff=1'
+        default: 'https://www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png'
     }
 
 

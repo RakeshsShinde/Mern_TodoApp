@@ -15,6 +15,8 @@ const register = async (req, res, next) => {
         })
 
         await user.save();
+
+        res.status(200).json(user);
     } catch (error) {
         next(error);
     }
@@ -36,9 +38,9 @@ const Login = async (req, res, next) => {
         }
 
         const token = jwt.sign({ id: user._id }, process.env.secretKey)
-        const {password:pass , ...other } = user._doc;
-        
-        return res.status(201).cookie('token', { token }, { httpOnly: true }).json({ other, token: token })
+        const { password: pass, ...other } = user._doc;
+
+        return res.status(201).cookie('token', { token }, { httpOnly: true }).json({ other })
 
 
     } catch (error) {

@@ -5,6 +5,8 @@ const path = require('path');
 const multer = require('multer');
 const userRoute = require('./Routes/Users');
 const taskRoute = require('./Routes/Task');
+const cookieParser = require('cookie-parser');
+const { register } = require('./controllers/userControllers')
 var app = express();
 
 app.use('/assets', express.static(path.join(__dirname, '/public/assets')))
@@ -21,6 +23,7 @@ app.use((err, req, res, next) => {
 
 
 app.use(express.json())
+app.use(cookieParser())
 connection(process.env.Mongo_url);
 
 
@@ -35,10 +38,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-app.post('/upload', upload.single("file"), (req, res) => {
-    console.log(req.body);
-    res.status(200).json('file has been uploaded !')
-})
+app.post('/users/register', upload.single("profilepic"), register)
+
 
 app.use('/users', userRoute);
 app.use('/task', taskRoute);
