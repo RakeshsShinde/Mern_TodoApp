@@ -1,6 +1,6 @@
 
 const Task = require('../models/task')
-const createTask = async (req, res, err) => {
+const createTask = async (req, res, next) => {
     try {
         const { id } = req.user;
         const date = new Date(req.body.date);
@@ -28,17 +28,22 @@ const updateTask = async (req, res, next) => {
     }
 }
 
-const getTask = async (req, res, err) => {
+const getTask = async (req, res, next) => {
     try {
+        const { id } = req.params;
+        const task = await Task.findById(id);
+        res.status(200).json(task);
 
     } catch (error) {
         next(error)
     }
 }
 
-const getTasks = async (req, res, err) => {
+const getTasks = async (req, res, next) => {
     try {
-
+        const { id } = req.user;
+        const tasks = await Task.find({ userId: id })
+        res.status(201).json({tasks} )
     } catch (error) {
         next(error)
     }

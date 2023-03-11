@@ -40,7 +40,6 @@ const upload = multer({ storage: storage })
 
 app.post('/users/register', upload.single("profilepic"), register)
 
-
 app.use('/users', userRoute);
 app.use('/task', taskRoute);
 
