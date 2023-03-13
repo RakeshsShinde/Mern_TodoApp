@@ -3,12 +3,13 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const register = async (req, res, next) => {
     try {
-        const { username, email, password, profilepic } = req.body;
+        const { Firstname, Lastname, email, password, profilepic } = req.body;
         const salt = await bcrypt.genSalt(10);
         const hashpassword = await bcrypt.hash(password, salt);
 
         const user = await new User({
-            username,
+            Firstname,
+            Lastname,
             email,
             password: hashpassword,
             profilepic,
