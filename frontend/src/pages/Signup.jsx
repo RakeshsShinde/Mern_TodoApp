@@ -15,8 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import Error from './Error';
-import Loader from './Loader';
+import Error from '../component/Error';
+import Loader from '../component/Loader';
 import axios from 'axios';
 
 function Copyright(props) {

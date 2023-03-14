@@ -16,8 +16,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import Loader from './Loader';
-import Error from './Error';
+import Loader from '../component/Loader';
+import Error from '../component/Error';
 
 function Copyright(props) {
     return (
@@ -118,7 +118,7 @@ export default function Login() {
                         display: "flex",
                         justifyContent: 'center',
                         alignItems: 'center',
-                        
+
 
 
 
