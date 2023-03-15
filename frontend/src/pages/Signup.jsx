@@ -50,15 +50,40 @@ export default function Signup() {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
     const [confirm, setconfirm] = useState('');
-    const [file, setfile] = useState('');
+    const [pic, setpic] = useState('');
 
     const [error, seterror] = useState(null);
     const [message, setmessage] = useState(null);
+    const [picmessage, setpicmessage] = useState(null);
     const [loading, setloading] = useState(false);
 
     const [Showpass, setShowpass] = useState(false);
     const [conpass, setconpass] = useState(false);
 
+    const postdetails = (pic) => {
+        if (!pic) {
+            return setpicmessage('select an image');
+        }
+        setpicmessage(null);
+
+        if (pic.type == 'image/jpeg' || pic.type == 'image/png') {
+            const data = new FormData();
+            data.append('file', pic);
+            data.append('upload_preset', 'todoapp');
+            data.append('cloud_name', 'diepzqxhh');
+            fetch('https://api.cloudinary.com/v1_1/diepzqxhh/image/upload', {
+                method: 'post',
+                body: data,
+            }).then((res) => res.json()).then((data) => {
+                console.log(data);
+                setpic(data)
+            }).catch((err) => {
+                console.log(err);
+            })
+        } else {
+            return setpicmessage('select an image ..')
+        }
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -79,6 +104,7 @@ export default function Signup() {
                     Lastname,
                     email,
                     password,
+                    profilepic: pic.url.toString(),
 
 
 
@@ -155,6 +181,17 @@ export default function Signup() {
 
 
                         }}><Error severity="success" text={message} /></span>}
+                        {picmessage && <span style={{
+                            marginTop: "5px",
+                            textAlign: "center",
+                            display: "flex",
+                            justifyContent: 'center',
+                            alignItems: 'center'
+
+
+
+
+                        }}><Error severity="success" text={picmessage} /></span>}
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <Box sx={{
                                 display: "flex",
@@ -262,12 +299,12 @@ export default function Signup() {
                                 fullWidth
                                 id="outlined-disabled"
 
-                                value={file ? `${file.name}` : "select profile pic"}
+                                value={pic ? `${pic.original_filename.toString()}` : "select profile pic"}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                            {file ? <>
-                                                <Button onClick={() => setfile(null)}>
+                                            {pic ? <>
+                                                <Button onClick={() => setpic(null)}>
                                                     <ClearIcon />
                                                 </Button>
                                             </> : <><input
@@ -277,7 +314,7 @@ export default function Signup() {
                                                 id="raised-button-file"
                                                 multiple
                                                 type="file"
-                                                onChange={(e) => setfile(e.target.files[0])}
+                                                onChange={(e) => postdetails(e.target.files[0])}
                                             />
 
                                                 <label htmlFor="raised-button-file">
@@ -307,7 +344,7 @@ export default function Signup() {
                                 <Grid item ml="auto">
                                     <span>Already have an account ?</span>
 
-                                    <Link to="/login" variant="body2">
+                                    <Link to="/" variant="body2">
                                         {"Log in"}
                                     </Link>
                                 </Grid>

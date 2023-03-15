@@ -75,7 +75,7 @@ export default function Login() {
 
             const { other } = data;
             localStorage.setItem("userInfo", JSON.stringify(other));
-            navigate('/')
+            navigate('/dashboard')
             setloading(false);
 
 

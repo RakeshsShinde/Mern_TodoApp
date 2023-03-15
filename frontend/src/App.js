@@ -1,22 +1,27 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Layout from './component/Layout';
+import Dashboard from './pages/Dashboard';
 
-import Home from './component/Home';
-import Login from './component/Login';
-import Signup from './component/Signup';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Setting from './pages/Setting';
+import Signup from './pages/Signup';
+import Todos from './pages/Todos';
 const App = () => {
     return (
-        <BrowserRouter>
-            <div className='App'>
+        <div className='App'>
+            <Routes>
+                <Route path='/' element={<Login />}></Route>
+                <Route path='/signup' element={<Signup />}></Route>
+                <Route path='/dashboard' element={<Dashboard />}>
+                    <Route path='' element={<Todos />}></Route>
+                    <Route path='setting' element={<Setting />}></Route>
 
-                <Routes>
-                    <Route exact path='/' element={<Home />} />
-                    <Route path='/login' element={<Login />} />
-                    <Route path='/signup' element={<Signup />} />
-                </Routes>
+                </Route>
 
-            </div>
-        </BrowserRouter>
+            </Routes>
+        </div>
     );
 }
 
