@@ -9,10 +9,11 @@ import Setting from './pages/Setting';
 import Signup from './pages/Signup';
 import Todos from './pages/Todos';
 const App = () => {
+    const isuser = localStorage.getItem('userInfo');
     return (
         <div className='App'>
             <Routes>
-                <Route path='/' element={<Login />}></Route>
+                <Route path='/' element={isuser ? <Dashboard /> : <Login />}></Route>
                 <Route path='/signup' element={<Signup />}></Route>
                 <Route path='/dashboard' element={<Dashboard />}>
                     <Route path='' element={<Todos />}></Route>

@@ -6,17 +6,16 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { deepPurple } from '@mui/material/colors';
 import { Avatar } from '@mui/material';
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../Actions/usersActions';
+
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -65,6 +64,10 @@ export default function Navbar() {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo } = userLogin;
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -73,10 +76,14 @@ export default function Navbar() {
         setMobileMoreAnchorEl(null);
     };
 
-    const handleMenuClose = () => {
+    const closemenu = () => {
         setAnchorEl(null);
-        handleMobileMenuClose();
-    };
+    }
+    const LogoutHandle = () => {
+        dispatch(logout())
+        navigate('/');
+        setAnchorEl(null);
+    }
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
@@ -96,11 +103,17 @@ export default function Navbar() {
                 vertical: 'top',
                 horizontal: 'right',
             }}
+            sx={{
+                width: '200px',
+                position: 'absolute',
+                top: '30px'
+
+            }}
             open={isMenuOpen}
-            onClose={handleMenuClose}
+            onClose={closemenu}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={closemenu}>Profile</MenuItem>
+            <MenuItem onClick={LogoutHandle}>Logout</MenuItem>
         </Menu>
     );
 

@@ -14,11 +14,11 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
+import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../component/Loader';
 import Error from '../component/Error';
-
+import { login } from '../Actions/usersActions'
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -47,42 +47,25 @@ const lightTheme = createTheme({
 export default function Login() {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
-    const [error, seterror] = useState(null);
-    const [loading, setloading] = useState(false);
+
     const [show, setshow] = useState(false);
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+    const userLogin = useSelector((state) => state.userLogin);
+    const { loading, error, userInfo } = userLogin;
 
 
-
-
+    useEffect(() => {
+        if (userInfo) {
+            navigate('/dashboard')
+        }
+    }, [userInfo, navigate])
 
     const handlesubmit = async (e) => {
         e.preventDefault();
+        dispatch(login(email, password))
 
-        try {
-            const config = {
-                header: {
-                    'Content-type': "application/json"
-                }
-            }
-            setloading(true);
-            const { data } = await axios.post('/users/login', {
-                email,
-                password,
-            }, config)
-
-
-            const { other } = data;
-            localStorage.setItem("userInfo", JSON.stringify(other));
-            navigate('/dashboard')
-            setloading(false);
-
-
-        } catch (error) {
-            seterror(error.response.data);
-            setloading(false);
-        }
 
 
     }
