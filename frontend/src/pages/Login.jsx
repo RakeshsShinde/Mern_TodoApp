@@ -58,7 +58,7 @@ export default function Login() {
 
     useEffect(() => {
         if (userInfo) {
-            <Navigate to='/dashboard' />
+            navigate('/dashboard')
         }
     }, [userInfo])
 

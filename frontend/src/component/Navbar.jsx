@@ -80,7 +80,7 @@ export default function Navbar() {
         setAnchorEl(null);
     }
     const LogoutHandle = () => {
-        <Navigate to='/' />
+        navigate('/')
         dispatch(logout())
 
         setAnchorEl(null);
