@@ -12,7 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Avatar } from '@mui/material';
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../Actions/usersActions';
 
@@ -80,8 +80,9 @@ export default function Navbar() {
         setAnchorEl(null);
     }
     const LogoutHandle = () => {
+        <Navigate to='/' />
         dispatch(logout())
-        navigate('/');
+
         setAnchorEl(null);
     }
 

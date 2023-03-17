@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -58,9 +58,9 @@ export default function Login() {
 
     useEffect(() => {
         if (userInfo) {
-            navigate('/dashboard')
+            <Navigate to='/dashboard' />
         }
-    }, [userInfo, navigate])
+    }, [userInfo])
 
     const handlesubmit = async (e) => {
         e.preventDefault();

@@ -4,9 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        userLogin: {
 
-        }
     },
     reducers: {
         user_login_start(state, action) {
@@ -22,11 +20,11 @@ const userSlice = createSlice({
         },
 
         user_logout(state, action) {
-            return { };
+            return {};
         }
-   
-        
-    }  
+
+
+    }
 })
 
 

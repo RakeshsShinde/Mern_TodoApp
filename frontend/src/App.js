@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { Navigate, Route, Routes } from 'react-router-dom'
+
 import Layout from './component/Layout';
 import Dashboard from './pages/Dashboard';
 
@@ -7,19 +9,19 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Setting from './pages/Setting';
 import Signup from './pages/Signup';
+import SingleTask from './pages/SingleTask';
 import Todos from './pages/Todos';
 const App = () => {
-    const isuser = localStorage.getItem('userInfo');
+    const isuser = useSelector(state => state.userLogin.userInfo);
+    console.log(isuser);
     return (
         <div className='App'>
             <Routes>
-                <Route path='/' element={isuser ? <Dashboard /> : <Login />}></Route>
+                <Route path='/' element={isuser ? <Navigate to='/dashboard' /> : <Login />}></Route>
                 <Route path='/signup' element={<Signup />}></Route>
-                <Route path='/dashboard' element={<Dashboard />}>
-                    <Route path='' element={<Todos />}></Route>
-                    <Route path='setting' element={<Setting />}></Route>
+                <Route path='/dashboard' element={isuser ? <Dashboard /> : <Navigate to='/' />}></Route>
+                <Route path='/SingleTask/:id' element={<SingleTask />}></Route>
 
-                </Route>
 
             </Routes>
         </div>
