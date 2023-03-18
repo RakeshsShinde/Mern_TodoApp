@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
-import userSlice from '../user/userSlice'
+import userLoginSlice from '../user/userLoginSlice'
+import userRegisterSlice from '../user/userRegisterSlice'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
 import { combineReducers } from '@reduxjs/toolkit'
@@ -12,7 +13,8 @@ const presistCofig = {
     storage
 }
 const reducer = combineReducers({
-    userLogin: userSlice.reducer
+    userLogin: userLoginSlice.reducer,
+    userRegister: userRegisterSlice.reducer
 })
 
 const persistedReducer = persistReducer(presistCofig, reducer)
@@ -28,6 +30,6 @@ const store = configureStore({
     middleware: middleware
 })
 
-export const actions = userSlice.actions;
-
+export const actions = userLoginSlice.actions;
+export const userRegisterAction = userRegisterSlice.actions
 export default store;

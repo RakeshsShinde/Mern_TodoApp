@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 
-const userSlice = createSlice({
+const userLoginSlice = createSlice({
     name: 'user',
     initialState: {
 
@@ -28,4 +28,4 @@ const userSlice = createSlice({
 })
 
 
-export default userSlice;
+export default userLoginSlice;

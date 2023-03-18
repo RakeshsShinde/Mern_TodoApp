@@ -12,12 +12,14 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import Error from '../component/Error';
 import Loader from '../component/Loader';
-import axios from 'axios';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../Actions/usersActions';
 
 function Copyright(props) {
     return (
@@ -51,14 +53,18 @@ export default function Signup() {
     const [password, setpassword] = useState('');
     const [confirm, setconfirm] = useState('');
     const [pic, setpic] = useState('');
-
-    const [error, seterror] = useState(null);
     const [message, setmessage] = useState(null);
     const [picmessage, setpicmessage] = useState(null);
-    const [loading, setloading] = useState(false);
+    const navigate = useNavigate()
 
     const [Showpass, setShowpass] = useState(false);
     const [conpass, setconpass] = useState(false);
+    const dispatch = useDispatch();
+    const userRegister = useSelector(state => state.userRegister)
+    const { error, loading, RegiterInfo } = userRegister;
+
+
+
 
     const postdetails = (pic) => {
         if (!pic) {
@@ -87,40 +93,13 @@ export default function Signup() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (password != confirm) {
-            setmessage("password do not match  ")
-        } else {
-            setmessage(null);
-            try {
-                const config = {
-                    header: {
-                        "Content-type": "application/json",
-                    }
-                }
-
-                setloading(true)
-                const { data } = await axios.post('/users/register', {
-                    Firstname,
-                    Lastname,
-                    email,
-                    password,
-                    profilepic: pic.url.toString(),
-
-
-
-                }, config)
-
-                setloading(false);
-                localStorage.setItem('userInfo', JSON.stringify(data));
-                setmessage('successfully create..')
-            } catch (error) {
-                seterror();
-                setloading(false);
-            }
+        if (password !== confirm) {
+            setmessage('password does not match !')
         }
-
-
-
+        else {
+            dispatch(register(Firstname, Lastname, email, password, pic))
+            navigate('/')
+        }
 
     };
 
