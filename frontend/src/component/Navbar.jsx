@@ -11,10 +11,12 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Avatar } from '@mui/material';
+import { Avatar, Divider } from '@mui/material';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../Actions/usersActions';
+
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -57,17 +59,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+
+
 export default function Navbar() {
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin;
+
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -118,55 +122,24 @@ export default function Navbar() {
         </Menu>
     );
 
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
-        </Menu>
-    );
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{
+            <AppBar component='nav' sx={{
                 paddingX: '100px',
-
-
             }}>
                 <Toolbar>
 
                     <Typography
-                        variant="h6"
+                        variant="h5"
                         noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' }, marginLeft: '50px' }}
+                        component="h6"
+                        sx={{
+                            display: { xs: 'none', sm: 'block' }, marginLeft: '25px',
+                            fontWeight: 700,
+                        }}
                     >
-                        MUI
+                        doit
                     </Typography>
                     <Box sx={{
                         marginLeft: '150px'
@@ -193,14 +166,14 @@ export default function Navbar() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <Avatar alt="Travis Howard" src="https://lh3.googleusercontent.com/ogw/AAEL6siojOgP_QVPfpuK8n_nckI4foY8_outwWYvLG1EHg=s64-c-mo" />
+                            <Avatar alt="Travis Howard" src={userInfo.profilepic} />
                         </IconButton>
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="show more"
-                            aria-controls={mobileMenuId}
+
                             aria-haspopup="true"
                             onClick={handleMobileMenuOpen}
                             color="inherit"
@@ -209,9 +182,10 @@ export default function Navbar() {
                         </IconButton>
                     </Box>
                 </Toolbar>
+                <Divider />
             </AppBar>
-            {renderMobileMenu}
+
             {renderMenu}
-        </Box>
+        </Box >
     );
 }

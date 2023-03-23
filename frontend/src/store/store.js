@@ -5,6 +5,7 @@ import userRegisterSlice from '../user/userRegisterSlice'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
 import { combineReducers } from '@reduxjs/toolkit'
+import taskSlice from '../task/taskSlice'
 
 
 const presistCofig = {
@@ -14,7 +15,8 @@ const presistCofig = {
 }
 const reducer = combineReducers({
     userLogin: userLoginSlice.reducer,
-    userRegister: userRegisterSlice.reducer
+    userRegister: userRegisterSlice.reducer,
+    userTasks: taskSlice.reducer,
 })
 
 const persistedReducer = persistReducer(presistCofig, reducer)
@@ -31,5 +33,6 @@ const store = configureStore({
 })
 
 export const actions = userLoginSlice.actions;
-export const userRegisterAction = userRegisterSlice.actions
+export const userRegisterAction = userRegisterSlice.actions;
+export const taskActions = taskSlice.actions;
 export default store;
