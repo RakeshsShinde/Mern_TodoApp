@@ -10,8 +10,6 @@ const { register } = require('./controllers/userControllers')
 var app = express();
 
 app.use('/assets', express.static(path.join(__dirname, '/public/assets')))
-
-
 dotenv.config();
 
 //handling error globally 

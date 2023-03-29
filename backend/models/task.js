@@ -8,8 +8,8 @@ const taskSchema = new mongoose.Schema({
 
     type: {
         type: String,
-        enums: ['default', 'shopping', 'whishlist', 'work', 'personal'],
-        default: 'default',
+        enums: ['travel', 'shopping', 'whishlist', 'work', 'personal'],
+        default: 'personal',
     },
 
     title: {

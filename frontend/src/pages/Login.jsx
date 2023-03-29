@@ -65,12 +65,10 @@ export default function Login() {
     const handlesubmit = async (e) => {
         e.preventDefault();
         dispatch(login(email, password))
-
-
+        
 
     }
 
-    console.log(error);
     const style = {
         color: show ? "blue" : "",
     }
@@ -101,10 +99,6 @@ export default function Login() {
                         display: "flex",
                         justifyContent: 'center',
                         alignItems: 'center',
-
-
-
-
 
                     }}><Error severity="error" text={error} /></span>}
                     <Box
@@ -172,8 +166,9 @@ export default function Login() {
                                 onClick={handlesubmit}
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Sign In
+                                LogIn
                             </Button>
+                          
                             <Grid container>
 
                                 <Grid item>

@@ -1,4 +1,4 @@
-import {styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { Box, Checkbox, createTheme, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { AiFillCarryOut, AiOutlineCarryOut, AiOutlineDelete } from 'react-icons/ai';
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#f6f8fa',
     ...theme.typography.body2,
     padding: theme.spacing(3),
 
@@ -22,7 +22,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-const SingleTodo = () => {
+const SingleTodo = ({ task }) => {
+
     return (
         <Item>
             <Stack direction={{ xs: 'column', sm: 'row' }}
@@ -41,7 +42,7 @@ const SingleTodo = () => {
                     borderRadius: '5px'
 
                 }} >
-                    management
+                    {task.type}
                 </Typography>
 
                 <Checkbox sx={{
@@ -50,9 +51,16 @@ const SingleTodo = () => {
 
             </Stack>
 
-            <Typography variant='subtitle2'>
-                meeting at @9am about resource management
+            <Typography variant='subtitle2' sx={{
+                marginLeft: '10px',
+                color: '#546478',
+                fontWeight: 400,
+                fontSize: '16px',
+                fontFamily: '"Roboto", sans serif !important'
+            }}>
+                {task.title}
             </Typography>
+
 
             <Box component='div' sx={{
 
@@ -68,9 +76,11 @@ const SingleTodo = () => {
             }}>
                 <Typography variant='subtitle2' sx={{
                     fontSize: '13px',
-                    color: '#6B728E'
+                    color: '#1b263b',
+                    fontFamily: '"Nunito", sans serif !important',
+                    fontWeight: 300,
                 }}>
-                    28 may 2023 ,9:45 AM
+                    {`${task.date.split('T')[0]},${task.time}`}
                 </Typography>
 
                 <Stack direction='row' spacing={1}>

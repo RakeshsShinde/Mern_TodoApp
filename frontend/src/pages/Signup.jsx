@@ -63,9 +63,6 @@ export default function Signup() {
     const userRegister = useSelector(state => state.userRegister)
     const { error, loading, RegiterInfo } = userRegister;
 
-
-
-
     const postdetails = (pic) => {
         if (!pic) {
             return setpicmessage('select an image');
@@ -144,9 +141,6 @@ export default function Signup() {
                             display: "flex",
                             justifyContent: 'center',
                             alignItems: 'center'
-
-
-
 
                         }}><Error severity="error" text={error} /></span>}
                         {message && <span style={{

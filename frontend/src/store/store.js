@@ -7,7 +7,6 @@ import { persistReducer } from 'redux-persist'
 import { combineReducers } from '@reduxjs/toolkit'
 import taskSlice from '../task/taskSlice'
 
-
 const presistCofig = {
     key: "root",
     version: 1,
@@ -20,10 +19,6 @@ const reducer = combineReducers({
 })
 
 const persistedReducer = persistReducer(presistCofig, reducer)
-
-
-
-
 
 const middleware = [thunk];
 
