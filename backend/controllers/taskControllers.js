@@ -4,12 +4,16 @@ const createTask = async (req, res, next) => {
     try {
         const { id } = req.user;
         const date = new Date(req.body.date);
+        console.log(req.body);
+        const { title, description, status, time, type } = req.body;
         const task = await new Task({
-            ...req.body,
+            type: type,
             userId: id,
             date: date,
-
-
+            title: title,
+            description: description,
+            status: status,
+            time: time
         })
         const saveUser = await task.save();
         res.status(201).json(saveUser);
@@ -42,8 +46,14 @@ const getTask = async (req, res, next) => {
 const getTasks = async (req, res, next) => {
     try {
         const { id } = req.user;
-        const tasks = await Task.find({ userId: id })
-        res.status(201).json({tasks} )
+        const { day, type } = req.query;
+        var tasks;
+        if (type) {
+            var tasks = await Task.find({ userId: id, type: type })
+        } else {
+            var tasks = await Task.find({ userId: id })
+        }
+        res.status(201).json({ tasks })
     } catch (error) {
         next(error)
     }

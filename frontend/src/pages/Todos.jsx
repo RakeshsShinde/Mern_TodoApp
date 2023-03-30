@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, Container, CssBaseline, Fade, FormControl, Grid, Modal, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, CssBaseline, Grid, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { styled, } from '@mui/material/styles'
 import { } from '@mui/material/colors'
@@ -6,7 +6,7 @@ import '../index.css'
 import { BsCalendarPlus } from 'react-icons/bs'
 import SingleTodo from '../component/SingleTodo';
 import { useDispatch, useSelector } from 'react-redux'
-import { taskActions } from '../store/store'
+import { todoActions } from '../store/store'
 import axios from 'axios'
 import TodoLoader from '../component/TodoLoader';
 import Error from '../component/Error';
@@ -28,7 +28,7 @@ const Wrapper = styled('div')(({ theme }) => ({
 const Todos = () => {
     const dispatch = useDispatch();
 
-    const { todo_list_start, todo_list_success, todo_list_fail } = taskActions
+    const { todo_list_start, todo_list_success, todo_list_fail } = todoActions
     const todos = useSelector((state) => state.userTasks)
     const { loading, tasks, error } = todos;
     const username = useSelector((state) => state.userLogin.userInfo.Firstname)
@@ -38,7 +38,7 @@ const Todos = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false)
 
-    console.log(typeFilter);
+
     useEffect(() => {
         try {
             dispatch(todo_list_start());

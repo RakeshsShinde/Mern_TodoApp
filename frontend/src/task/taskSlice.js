@@ -5,7 +5,7 @@ const initialState = {
 
 }
 
-const taskSlice = createSlice({
+const todoSlice = createSlice({
     name: 'task',
     initialState,
     reducers: {
@@ -21,4 +21,4 @@ const taskSlice = createSlice({
     }
 })
 
-export default taskSlice;
+export default todoSlice;
