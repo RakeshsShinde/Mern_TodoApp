@@ -1,12 +1,9 @@
 import { styled } from '@mui/material/styles';
-import { Box, Checkbox, createTheme, Paper, Stack, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Checkbox, Paper, Stack, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import { AiFillCarryOut, AiOutlineCarryOut, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-
-
-
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#f6f8fa',
@@ -16,14 +13,17 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.primary,
     display: 'flex',
     flexDirection: 'column',
-    gap: '2rem',
-    maxHeight: '300px'
+    justifyContent: 'space-between',
+    minHeight: '280px',
+
 
 }));
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const SingleTodo = ({ task }) => {
-
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false)
     return (
         <Item>
             <Stack direction={{ xs: 'column', sm: 'row' }}
@@ -52,7 +52,7 @@ const SingleTodo = ({ task }) => {
             </Stack>
 
             <Typography variant='subtitle2' sx={{
-                marginLeft: '10px',
+                marginLeft: '12px',
                 color: '#546478',
                 fontWeight: 400,
                 fontSize: '16px',
@@ -60,7 +60,10 @@ const SingleTodo = ({ task }) => {
             }}>
                 {task.title}
             </Typography>
-
+            <Typography variant='body1'
+                marginLeft='10px'>
+                {task.description}
+            </Typography>
 
             <Box component='div' sx={{
 
@@ -80,20 +83,17 @@ const SingleTodo = ({ task }) => {
                     fontFamily: '"Nunito", sans serif !important',
                     fontWeight: 300,
                 }}>
-                    {`${task.date.split('T')[0]},${task.time}`}
+                    {`${task.date.split('T')[0]}${"  "}${task.time}`}
                 </Typography>
 
                 <Stack direction='row' spacing={1}>
-                    <Link >
-                        <BiEdit color='#2b9348' size={25} />
+                    <Link to={`/task/${task._id}`}>
+                        <BiEdit onClick={handleOpen} color='#2b9348' size={25} />
                     </Link>
                     <Link to='/'>
                         <AiOutlineDelete color='#FF597B' size={25} />
                     </Link>
-
-
                 </Stack>
-
             </Box>
 
         </Item>

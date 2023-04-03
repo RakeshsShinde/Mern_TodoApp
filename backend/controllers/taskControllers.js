@@ -25,7 +25,14 @@ const createTask = async (req, res, next) => {
 const updateTask = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const task = await Task.findByIdAndUpdate(id, { ...req.body }, { new: true });
+        const { title, decscription, type, status } = req.body;
+        const task = await Task.findByIdAndUpdate(id, {
+            title: title,
+            description: decscription,
+            type: type,
+            status: status,
+        }, { new: true });
+
         res.status(200).json(task);
     } catch (error) {
         next(error)

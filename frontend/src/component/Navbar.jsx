@@ -8,56 +8,11 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Avatar, Divider } from '@mui/material';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../Actions/usersActions';
-
-
-
-
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: 'auto',
-    },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
-    },
-}));
-
 
 
 export default function Navbar() {
@@ -74,7 +29,7 @@ export default function Navbar() {
         setAnchorEl(event.currentTarget);
     };
 
-   
+
 
     const closemenu = () => {
         setAnchorEl(null);
@@ -105,7 +60,7 @@ export default function Navbar() {
                 horizontal: 'right',
             }}
             sx={{
-                width: '200px',
+                width: '250px',
                 position: 'absolute',
                 top: '30px'
 
@@ -123,21 +78,32 @@ export default function Navbar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar component='nav' sx={{
                 paddingX: '100px',
+                backgroundColor: '#ffffff',
+                color: 'black'
             }}>
                 <Toolbar>
 
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="h6"
-                        sx={{
-                            display: { xs: 'none', sm: 'block' }, marginLeft: '25px',
-                            fontWeight: 700,
-                        }}
-                    >
-                        doit
-                    </Typography>
-                    <Box sx={{
+                    <Link to='/dashboard' style={{
+                        textDecoration: 'none'
+                    }} >
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            component="h6"
+                            sx={{
+                                display: { xs: 'none', sm: 'block' }, marginLeft: '50px',
+                                fontWeight: 700,
+                                fontFamily: '"Dancing Script", cursive !important',
+                                fontSize: '55px',
+                                color: '#f72585',
+
+                            }}
+                        >
+                            doit
+                        </Typography>
+                    </Link>
+
+                    {/* <Box sx={{
                         marginLeft: '150px'
                     }}>
                         <Search  >
@@ -149,7 +115,7 @@ export default function Navbar() {
                                 inputProps={{ 'aria-label': 'search' }}
                             />
                         </Search>
-                    </Box>
+                    </Box> */}
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
@@ -178,7 +144,7 @@ export default function Navbar() {
                         </IconButton>
                     </Box>
                 </Toolbar>
-                <Divider />
+                <Divider variant="middle" />
             </AppBar>
 
             {renderMenu}
