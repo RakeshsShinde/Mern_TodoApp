@@ -1,4 +1,4 @@
-import { Box, Button, Container, CssBaseline, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Chip, Container, CssBaseline, Grid, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { styled, } from '@mui/material/styles'
 import '../index.css'
@@ -11,6 +11,7 @@ import TodoLoader from '../component/TodoLoader';
 import Error from '../component/Error';
 import CreateTaskmodal from '../component/CreateTaskmodal';
 import Pagination from '@mui/material/Pagination'
+
 const Wrapper = styled('div')(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -30,15 +31,18 @@ const Todos = () => {
     const username = useSelector((state) => state.userLogin.userInfo.Firstname)
     const [open, setOpen] = React.useState(false);
     const [typeFilter, settypeFilter] = useState('shopping');
-    const [dayFilter, setdayFilter] = useState('last 7 days')
+    const [dayFilter, setdayFilter] = useState('last 7 days');
+    const [selectedChips, setselectedChips] = useState(['shopping']);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false)
     const [page, setPage] = useState(1);
     const [data, setdata] = useState([]);
+    const categories = ['travel', 'shopping', 'whishlist', 'work', 'personal']
     const itemsperpage = 6;
     const handleChange = (event, value) => {
         setPage(value);
     };
+
 
     function usePagination(data, itemsperpage) {
         const totalpages = Math.ceil(data.length / itemsperpage)
@@ -101,9 +105,10 @@ const Todos = () => {
                     <TextField placeholder='Search tasks ' size='small' sx={{
                         width: '300px'
                     }}></TextField>
-                    <Button variant='contained' color='success' endIcon={<BsCalendarPlus />} onClick={handleOpen}>create</Button>
+                    <Button variant='outlined' endIcon={<BsCalendarPlus />} onClick={handleOpen}>create</Button>
                     <CreateTaskmodal open={open} handleClose={handleClose} />
                 </Stack>
+
 
                 <Box sx={{
                     flexGrow: 1,

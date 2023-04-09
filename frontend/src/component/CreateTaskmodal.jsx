@@ -57,6 +57,7 @@ const CreateTaskmodal = ({ open, handleClose }) => {
     }
 
     const categories = ['travel', 'shopping', 'whishlist', 'work', 'personal']
+    
 
 
     return (

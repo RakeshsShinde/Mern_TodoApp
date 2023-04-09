@@ -14,7 +14,6 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../component/Loader';
 import Error from '../component/Error';
@@ -32,11 +31,7 @@ function Copyright(props) {
     );
 }
 
-const darktheme = createTheme({
-    palette: {
-        mode: 'dark'
-    }
-});
+
 
 const lightTheme = createTheme({
     palette: {
@@ -65,8 +60,6 @@ export default function Login() {
     const handlesubmit = async (e) => {
         e.preventDefault();
         dispatch(login(email, password))
-        
-
     }
 
     const style = {
@@ -78,7 +71,6 @@ export default function Login() {
             <Grid container mx='auto' component="main" sx={{ width: '70%', height: '50vh', marginTop: "50px", }}>
                 <CssBaseline />
                 <Grid
-
                     item
                     xs={false}
                     sm={false}
@@ -168,7 +160,7 @@ export default function Login() {
                             >
                                 LogIn
                             </Button>
-                          
+
                             <Grid container>
 
                                 <Grid item>
