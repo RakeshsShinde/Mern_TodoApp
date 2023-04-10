@@ -8,6 +8,7 @@ import { persistReducer } from 'redux-persist'
 import { combineReducers } from '@reduxjs/toolkit'
 import usersTodo from '../task/usersTodos'
 import createTodoSlice from '../task/createTodoSlice'
+import deleteTodoSlice from '../task/deleteTodoSlice'
 const presistCofig = {
     key: "root",
     version: 1,
@@ -19,6 +20,7 @@ const reducer = combineReducers({
     userTodos: usersTodo.reducer,
     createTodo: createTodoSlice.reducer,
     EditTodo: EditTodoSlice.reducer,
+    deleteTodo: deleteTodoSlice.reducer,
 })
 
 const persistedReducer = persistReducer(presistCofig, reducer)
@@ -35,4 +37,5 @@ export const userRegisterAction = userRegisterSlice.actions;
 export const todoActions = usersTodo.actions;
 export const createTodoAction = createTodoSlice.actions;
 export const editTodoActions = EditTodoSlice.actions;
+export const removeTodoActions = deleteTodoSlice.actions;
 export default store;

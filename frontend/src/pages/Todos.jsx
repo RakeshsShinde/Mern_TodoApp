@@ -54,9 +54,6 @@ const Todos = () => {
 
 
     const { totalpages, filterdata } = usePagination(data, itemsperpage)
-    console.log(totalpages, filterdata);
-
-
     useEffect(() => {
         try {
             dispatch(todo_list_start());

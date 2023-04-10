@@ -67,4 +67,24 @@ const getTasks = async (req, res, next) => {
 }
 
 
-module.exports = { createTask, updateTask, getTask, getTasks }
+const deleteTask = async (req, res, next) => {
+
+    try {
+        const { id } = req.params;
+        var todo = await Task.findById(id);
+        const { _id } = todo;
+        if (!todo) {
+            res.status(404).send('todo not found !')
+        }
+        else if (_id == id) {
+            await Task.findByIdAndDelete(id);
+            res.status(200).send(`todo with id ${id} deleted successfully `);
+        }
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+
+module.exports = { createTask, updateTask, getTask, getTasks, deleteTask }

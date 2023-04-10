@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import { AiFillCarryOut, AiOutlineCarryOut, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { removeTodo } from '../Actions/deleteTodoActions'
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#f6f8fa',
     ...theme.typography.body2,
@@ -21,9 +22,14 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const SingleTodo = ({ task }) => {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false)
+    const dispatch = useDispatch();
+
+    const handleDeleteTodo = (id) => {
+        console.log(id);
+        dispatch(removeTodo(id))
+        window.location.replace('/dashboard');
+    }
+
     return (
         <Item>
             <Stack direction={{ xs: 'column', sm: 'row' }}
@@ -47,7 +53,7 @@ const SingleTodo = ({ task }) => {
 
                 <Checkbox sx={{
                     marginLeft: 'auto',
-                }} {...label} icon={<AiOutlineCarryOut size={25} />} checkedIcon={<AiFillCarryOut size={25} />} />
+                }} {...label} icon={task.status === "complete" ? <AiFillCarryOut size={25} color={'#023e8a'} /> : <AiOutlineCarryOut size={25} />} />
 
             </Stack>
 
@@ -68,7 +74,6 @@ const SingleTodo = ({ task }) => {
             <Box component='div' sx={{
 
                 width: '100%',
-
                 padding: '2px',
                 display: 'flex',
                 flexDirection: 'row',
@@ -88,10 +93,10 @@ const SingleTodo = ({ task }) => {
 
                 <Stack direction='row' spacing={1}>
                     <Link to={`/task/${task._id}`}>
-                        <BiEdit onClick={handleOpen} color='#2b9348' size={25} />
+                        <BiEdit color='#2b9348' size={25} />
                     </Link>
-                    <Link to='/'>
-                        <AiOutlineDelete color='#FF597B' size={25} />
+                    <Link>
+                        <AiOutlineDelete color='#FF597B' size={25} onClick={() => handleDeleteTodo(task._id)} />
                     </Link>
                 </Stack>
             </Box>
